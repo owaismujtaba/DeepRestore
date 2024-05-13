@@ -2,11 +2,13 @@ import librosa
 import numpy as np
 from utils import get_all_files_with_paths
 from utils import get_directories_in_current_folder
+from utils import get_word_list_with_frequency_info
 import math
 from pathlib import Path
 import pdb
 import pandas as pd
 import os
+import config
 
 def calculate_snr(audio_file, noise):
     signal_power = np.mean(np.abs(audio_file)**2)
@@ -32,7 +34,7 @@ def analyze_files(function, folder_path, output_dir):
     if function == 'SNR':
         os.makedirs(output_dir, exist_ok=True)
         directories = get_directories_in_current_folder(folder_path)
-        
+        freq_group_info = get_word_list_with_frequency_info(config.WORDS_FILE_PATH)
         snr_data = []
         for directory in directories:
             cur_dir = Path(folder_path, directory)
@@ -41,6 +43,10 @@ def analyze_files(function, folder_path, output_dir):
             for file in files_with_paths:
                 model = str(cur_dir).split('\\')[-1]
                 word = file.split('\\')[-1].split('.')[0]
+                try:
+                    freq_group = freq_group_info[word]
+                except:
+                    freq_group = None
                 print("Processing {} file".format(word))
                 
                 audio_file, sample_rate = librosa.load(file)
@@ -51,10 +57,10 @@ def analyze_files(function, folder_path, output_dir):
                 snr_gaussian = calculate_snr(audio_file, gaussian_noise)
                 snr_white = calculate_snr(audio_file, white_noise)
                 
-                snr_data.append([word, model, snr_gaussian, snr_white])
+                snr_data.append([word, model, snr_gaussian, snr_white, freq_group])
                 print(snr_gaussian, snr_white)
                 
-        columns = ['word', 'Model', 'snr_gaussian', 'snr_white']
+        columns = ['word', 'Model', 'snr_gaussian', 'snr_white', 'freq_group']
         snr_data = pd.DataFrame(snr_data, columns=columns)
         output_filename = Path(output_dir, 'snr.csv')
         

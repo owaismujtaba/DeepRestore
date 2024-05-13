@@ -1,5 +1,6 @@
 from openpyxl import load_workbook
 import os
+import pdb
 
 def get_word_list_for_synthesis(filepath):
 
@@ -44,3 +45,30 @@ def get_directories_in_current_folder(folder_path):
     directories = [d for d in os.listdir(folder_path) if os.path.isdir(os.path.join(folder_path, d))]
     
     return directories
+
+
+def get_word_list_with_frequency_info(filepath):
+    import pandas as pd
+    print('Loading file',  filepath)
+    excel_data = pd.read_excel(filepath, sheet_name=None)
+    frequency_group ={}
+    
+    for sheet_name, sheet_data in excel_data.items():
+        print(f"Sheet Name: {sheet_name}")
+        
+        # Assuming 'word' and 'FrequencyGroup' are column names
+        try:
+
+            word_frequency_pairs = sheet_data[['word', 'FreqencyGroup']]
+            
+            # Iterate through rows to print each word and its frequency group
+            for index, row in word_frequency_pairs.iterrows():
+                word = row['word']
+                if word in frequency_group:
+                    continue
+                frequency_group[word] = row['FreqencyGroup']
+
+        except:
+            pass 
+
+    return frequency_group
