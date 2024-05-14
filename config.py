@@ -21,7 +21,7 @@ ANALYSIS_DIR = Path(CUR_DIR, 'Analysis')
         MozillaTTS: python 3.8
         FacebookTTS: python 3.10 and torchaudi 2.0.1
 '''
-SELECT_MODEL_NAME = 'MeloTTS' 
+SELECT_MODEL_NAME = 'FacebookTTS' 
 MODEL_DIR = Path(CUR_DIR, 'MODELS')
 SELECTED_MODEL_DIR = Path(MODEL_DIR, SELECT_MODEL_NAME)
 

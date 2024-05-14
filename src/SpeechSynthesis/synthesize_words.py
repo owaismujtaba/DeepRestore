@@ -14,11 +14,12 @@ def synthesize_words(model_dir, word_list, output_dir):
         synthesize(model_dir, word_list, output_dir)
 
     if model_name == 'MeloTTS':
-        from MeloTTS import synthesize
+        from src.SpeechSynthesis.MeloTTS import synthesize
+        #from MeloTTS import synthesize
         os.makedirs(output_dir, exist_ok=True)
         synthesize(model_dir, word_list, output_dir)
     
     if model_name == 'FacebookTTS':
-        from FacebookTTS import synthesize
+        from src.SpeechSynthesis.FacebookTTS import synthesize
         os.makedirs(output_dir, exist_ok=True)
         synthesize(model_dir, word_list, output_dir)

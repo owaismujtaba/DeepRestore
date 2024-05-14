@@ -4,7 +4,8 @@ import config
 import pdb
 
 from utils import get_word_list_for_synthesis
-from synthesize_words import synthesize_words
+from src.SpeechSynthesis.synthesize_words import synthesize_words
+
 
 def main():
 
@@ -40,7 +41,7 @@ def main():
 
     elif arguments.FUNCTION == 'ANALYSIS':
         if arguments.SUB_FUNCTION == 'SNR':
-            from audio_quality import analyze_files
+            from src.audio_quality import analyze_files
             analyze_files(arguments.SUB_FUNCTION, arguments.SYNTH_WORDS_DIR, config.ANALYSIS_DIR)
 
 if __name__=='__main__':

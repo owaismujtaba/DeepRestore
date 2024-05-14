@@ -41,8 +41,8 @@ def analyze_files(function, folder_path, output_dir):
             files_with_paths = get_all_files_with_paths(cur_dir)
             
             for file in files_with_paths:
-                model = str(cur_dir).split('\\')[-1]
-                word = file.split('\\')[-1].split('.')[0]
+                model = str(cur_dir).split('/')[-1]
+                word = file.split('/')[-1].split('.')[0]
                 try:
                     freq_group = freq_group_info[word]
                 except:

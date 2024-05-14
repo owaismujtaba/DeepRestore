@@ -20,7 +20,9 @@ import matplotlib.pyplot as plt
 import os
 from pathlib import Path
 
-def visualize_snr_data_freq_wise(filepath=r'C:\DeepRESTORE\Analysis\snr.csv'):
+def visualize_snr_data_freq_wise(filepath=r'/home/owais/GitHub/DeepRestore/Analysis/snr.csv'):
+    import pdb
+    #pdb.set_trace()
     data = pd.read_csv(filepath)
     data = data[['Model', 'snr_gaussian', 'snr_white', 'freq_group']]
     
@@ -59,7 +61,7 @@ def visualize_snr_data_freq_wise(filepath=r'C:\DeepRESTORE\Analysis\snr.csv'):
     filename_with_path = Path(config.IMAGE_DIR, f'MODEL_SNR_FREQ_ALL.png', dpi=600)
     plt.savefig(filename_with_path)
 
-def visualize_snr_data(filepath = r'C:\DeepRESTORE\Analysis\snr.csv'):
+def visualize_snr_data(filepath = r'/home/owais/GitHub/DeepRestore/Analysis/snr.csv'):
     visualize_snr_data_freq_wise()
     data = pd.read_csv(filepath)
     
